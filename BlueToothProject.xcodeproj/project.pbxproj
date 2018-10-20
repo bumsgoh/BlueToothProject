@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		221A6D6E948EF1AA68D60ADE /* Pods_BlueToothProjectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 399230C4C17A6F9ABA31DA81 /* Pods_BlueToothProjectUITests.framework */; };
+		B32B32E52179E9970049633D /* ChatListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32B32E42179E9970049633D /* ChatListTableViewController.swift */; };
+		B32B32E72179E9F30049633D /* ChatRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32B32E62179E9F30049633D /* ChatRoom.swift */; };
+		B32B32E92179EA0E0049633D /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32B32E82179EA0E0049633D /* ChatListTableViewCell.swift */; };
+		B32B32EB2179EA6E0049633D /* ChatBubbleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32B32EA2179EA6E0049633D /* ChatBubbleCollectionViewCell.swift */; };
+		B32B32ED2179EAA10049633D /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32B32EC2179EAA10049633D /* ChatViewController.swift */; };
 		B352A9632171D93800EDF119 /* BlueToothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B352A9622171D93800EDF119 /* BlueToothManager.swift */; };
 		B352A9662174BE7200EDF119 /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B352A9652174BE7200EDF119 /* SocketManager.swift */; };
 		B352A968217561AF00EDF119 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B352A967217561AF00EDF119 /* LoginViewController.swift */; };
@@ -49,6 +54,11 @@
 		399230C4C17A6F9ABA31DA81 /* Pods_BlueToothProjectUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlueToothProjectUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60951A1E19AE18F9BD2E8C54 /* Pods-BlueToothProjectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlueToothProjectUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BlueToothProjectUITests/Pods-BlueToothProjectUITests.release.xcconfig"; sourceTree = "<group>"; };
 		71E926968EE4FDEEE90E2034 /* Pods-BlueToothProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlueToothProjectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BlueToothProjectTests/Pods-BlueToothProjectTests.release.xcconfig"; sourceTree = "<group>"; };
+		B32B32E42179E9970049633D /* ChatListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListTableViewController.swift; sourceTree = "<group>"; };
+		B32B32E62179E9F30049633D /* ChatRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoom.swift; sourceTree = "<group>"; };
+		B32B32E82179EA0E0049633D /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
+		B32B32EA2179EA6E0049633D /* ChatBubbleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBubbleCollectionViewCell.swift; sourceTree = "<group>"; };
+		B32B32EC2179EAA10049633D /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		B352A9622171D93800EDF119 /* BlueToothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueToothManager.swift; sourceTree = "<group>"; };
 		B352A9652174BE7200EDF119 /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
 		B352A967217561AF00EDF119 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -193,6 +203,8 @@
 				B3660927212701BC0046846E /* BlueToothSearchingTableViewController.swift */,
 				B363F3FA2139A44B001935EF /* ConnectedBlueToothViewController.swift */,
 				B352A967217561AF00EDF119 /* LoginViewController.swift */,
+				B32B32EC2179EAA10049633D /* ChatViewController.swift */,
+				B32B32E42179E9970049633D /* ChatListTableViewController.swift */,
 				B352A9692175689000EDF119 /* MainTabBarController.swift */,
 			);
 			path = Controller;
@@ -201,6 +213,8 @@
 		B3B7D62D21399433004BFF49 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B32B32EA2179EA6E0049633D /* ChatBubbleCollectionViewCell.swift */,
+				B32B32E82179EA0E0049633D /* ChatListTableViewCell.swift */,
 				B363F3F821399CB9001935EF /* BlueToothPeripheralTableViewCell.swift */,
 			);
 			path = View;
@@ -209,6 +223,7 @@
 		B3B7D62E2139943B004BFF49 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B32B32E62179E9F30049633D /* ChatRoom.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -452,12 +467,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				B352A968217561AF00EDF119 /* LoginViewController.swift in Sources */,
+				B32B32E52179E9970049633D /* ChatListTableViewController.swift in Sources */,
 				B363F3F921399CB9001935EF /* BlueToothPeripheralTableViewCell.swift in Sources */,
 				B352A96A2175689000EDF119 /* MainTabBarController.swift in Sources */,
 				B352A9632171D93800EDF119 /* BlueToothManager.swift in Sources */,
 				B363F3FB2139A44B001935EF /* ConnectedBlueToothViewController.swift in Sources */,
 				B3660928212701BC0046846E /* BlueToothSearchingTableViewController.swift in Sources */,
 				B352A9662174BE7200EDF119 /* SocketManager.swift in Sources */,
+				B32B32EB2179EA6E0049633D /* ChatBubbleCollectionViewCell.swift in Sources */,
+				B32B32ED2179EAA10049633D /* ChatViewController.swift in Sources */,
+				B32B32E72179E9F30049633D /* ChatRoom.swift in Sources */,
+				B32B32E92179EA0E0049633D /* ChatListTableViewCell.swift in Sources */,
 				B3660926212701BC0046846E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

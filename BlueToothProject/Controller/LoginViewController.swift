@@ -1,7 +1,7 @@
 //
 //  LoginViewController.swift
 //
-//
+//  lueToothProject
 //  Created by 고상범 on 2018. 10. 4..
 //  Copyright © 2018년 고상범. All rights reserved.
 //
@@ -19,7 +19,6 @@ class LoginViewController: UIViewController {
         view.image = nil
         return view
     }()
-    
     
     let loginIdTextField: UITextField = {
         let textField = UITextField()
@@ -77,7 +76,7 @@ class LoginViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 54)
-        label.text = "Log in"
+        label.text = "Log In"
         label.textColor = UIColor.darkGray
         return label
     }()
@@ -89,40 +88,42 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UISetUp()
+        
         self.view.backgroundColor = UIColor.white
         self.loginIdTextField.delegate = self
         self.loginPasswordTextField.delegate = self
-        UISetUp()
         self.signUpTextLabel.addGestureRecognizer(signUpGestureRecognizer)
+        
+    //소켓처리
         socket = SocketManaging.socketManager.socket(forNamespace: "/login")
         socket.on(clientEvent: .connect) {data, ack in
-            print("socket connected")}
+            print("socket connected")
+        }
         socket.connect()
-        
-        
-        
-        socket.on("loginSuccess") {data, ack in
-            print(data)
-            print(ack)
-            print("login Success")
-          //  let vc: ChatListTableViewController = ChatListTableViewController()
-           // self.navigationController?.pushViewController(vc, animated: true)
+        socket.on("loginSuccess") {[weak self] data, ack in
+            print("login gut")
+            let tabBarvc: MainTabBarController  = MainTabBarController()
+            guard let id = self?.loginIdTextField.text else {return}
+            tabBarvc.userId = id
+            self?.navigationController?.pushViewController(tabBarvc, animated: true)
         }
     }
     
-    
     @objc func loginButtonClicked(sender: UIButton) {
-        
+        print(self.loginIdTextField.text!)
         let myJSON = [
             "userId": "\(self.loginIdTextField.text!)",
             "password": "\(self.loginPasswordTextField.text!)",
             "nickName": "\(self.loginIdTextField.text!)"
         ]
+        
         socket.emit("loginRequest", myJSON)
     }
     @objc func loginButtonReleased(sender: UIButton) {
         
     }
+    
     @objc func signUpButtonClicked(sender: UIButton) {
         
     }
@@ -138,17 +139,12 @@ class LoginViewController: UIViewController {
         self.view.addSubview(signUpTextLabel)
         
         self.appTitleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 12).isActive = true
-        //self.appTitleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         self.appTitleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16).isActive = true
-        
         
         self.logoImageView.topAnchor.constraint(equalTo: self.appTitleLabel.bottomAnchor, constant: 84).isActive = true
         self.logoImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         self.logoImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
         self.logoImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        
-        
-        
         
         self.loginIdTextField.topAnchor.constraint(equalTo: self.logoImageView.bottomAnchor, constant: 54).isActive = true
         self.loginIdTextField.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.6).isActive = true
@@ -157,7 +153,6 @@ class LoginViewController: UIViewController {
         
         //  self.loginIdTextField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -32).isActive = true
         //self.loginIdTextField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 32).isActive = true
-        
         
         self.idTextFieldDivider.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         self.idTextFieldDivider.widthAnchor.constraint(equalTo: self.loginIdTextField.widthAnchor).isActive = true
