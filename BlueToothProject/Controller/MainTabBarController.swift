@@ -21,13 +21,15 @@ class MainTabBarController: UITabBarController {
         blueToothVC.tabBarItem = UITabBarItem(title: "bluetooth", image: #imageLiteral(resourceName: "bluetooth-logo-with-background"), tag: 0)
        // UITabBarItem(tabBarSystemItem: UITabBarSystemItem.downloads, tag: 0)
         let naviCoverBlueTooth: UINavigationController = UINavigationController(rootViewController: blueToothVC)
+        let connectingBTVC: BlueToothConnectingViewController = BlueToothConnectingViewController()
+         connectingBTVC.tabBarItem = UITabBarItem(title: "bluetooth", image: #imageLiteral(resourceName: "bluetooth-logo-with-background"), tag: 0)
         
         let chatListsViewController = ChatListTableViewController()
         chatListsViewController.userId = self.userId
         chatListsViewController.tabBarItem = UITabBarItem(title: "chatRooms", image: #imageLiteral(resourceName: "living-room-books-group"), tag: 1)
         
         let naviCover: UINavigationController = UINavigationController(rootViewController: chatListsViewController)
-        setViewControllers([naviCoverBlueTooth, naviCover], animated: false)
+        setViewControllers([connectingBTVC, chatListsViewController], animated: false)
       
     }
 }

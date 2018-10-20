@@ -31,7 +31,7 @@ class ChatListTableViewController: UITableViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "invite", style: UIBarButtonItemStyle.plain, target: self, action: #selector(inviteButtonClicked))
+       
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(ChatListTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
@@ -42,7 +42,6 @@ class ChatListTableViewController: UITableViewController {
             print("socket chat connected")
             self?.socket.emit("getChatList", "\(self!.userId)")
         }
-        
         
         self.socket.on("invitedJoin") {(data,ack) in
             for fixed in data {
@@ -69,7 +68,7 @@ class ChatListTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+         self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "invite", style: UIBarButtonItemStyle.plain, target: self, action: #selector(inviteButtonClicked))
     }
    
     @objc func inviteButtonClicked() {
@@ -78,7 +77,8 @@ class ChatListTableViewController: UITableViewController {
         alert.addTextField { (textField) in
             textField.text = "아이디를 입력해주세요"
         }
-        alert.addAction(UIAlertAction(title: "INVITE", style: .default, handler: { [weak alert] (_) in
+        alert.textFields?[0].clearButtonMode = .always
+        alert.addAction(UIAlertAction(title: "invite", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
             self.inviteId = (textField?.text)!
             let myJSON = [
@@ -89,6 +89,8 @@ class ChatListTableViewController: UITableViewController {
             self.socket.emit("requestJoin", myJSON)
             
         }))
+        
+        alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
         

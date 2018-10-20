@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFit
-        view.image = nil
+        view.image = #imageLiteral(resourceName: "glass")
         return view
     }()
     
@@ -119,6 +119,13 @@ class LoginViewController: UIViewController {
         ]
         
         socket.emit("loginRequest", myJSON)
+        /*
+         TESTING*/
+        let tabBarvc: MainTabBarController  = MainTabBarController()
+        guard let id = self.loginIdTextField.text else {return}
+        tabBarvc.userId = id
+        self.navigationController?.pushViewController(tabBarvc, animated: true)
+ 
     }
     @objc func loginButtonReleased(sender: UIButton) {
         
@@ -143,8 +150,8 @@ class LoginViewController: UIViewController {
         
         self.logoImageView.topAnchor.constraint(equalTo: self.appTitleLabel.bottomAnchor, constant: 84).isActive = true
         self.logoImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.logoImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        self.logoImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        self.logoImageView.widthAnchor.constraint(equalToConstant: 130).isActive = true
+        self.logoImageView.heightAnchor.constraint(equalToConstant: 130).isActive = true
         
         self.loginIdTextField.topAnchor.constraint(equalTo: self.logoImageView.bottomAnchor, constant: 54).isActive = true
         self.loginIdTextField.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.6).isActive = true

@@ -21,13 +21,16 @@ class BlueToothSearchingTableViewController: UITableViewController {
     var isMyPeripheralConected = false
     //var socket: SocketIOClient!
 
-    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.navigationItem.rightBarButtonItem = nil
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(BlueToothPeripheralTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         self.manager = CBCentralManager(delegate: self, queue: nil)
+        
         //self.manager = CBCentralManager(delegate: self, queue: nil)
         
        
