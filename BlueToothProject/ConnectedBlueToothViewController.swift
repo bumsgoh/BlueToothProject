@@ -6,6 +6,7 @@
 //  Copyright © 2018년 고상범. All rights reserved.
 //
 
+
 import UIKit
 import CoreBluetooth
 import SocketIO
@@ -13,13 +14,36 @@ import SocketIO
 class ConnectedBlueToothViewController: UIViewController {
     
     var manager : CBCentralManager!
-    var peripheral: CBPeripheral!
+    //var peripheral: CBPeripheral!
     var myBluetoothPeripheral : CBPeripheral!
     var myCharacteristic : CBCharacteristic!
     var peripherals: [(peripheral: CBPeripheral, RSSI: Float)] = []
     var isMyPeripheralConected = false
     var socket: SocketIOClient!
     
+    let indicatingTextLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        return label
+    }()
+    
+    
+    let btImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = #imageLiteral(resourceName: "bluetooth")
+        return imageView
+    }()
+    
+    let loadingView: UIView = {
+        let containerView = UIView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.clipsToBounds = true
+        // view.translatesAutoresizingMaskIntoConstraints = false
+        //containerView.safeAddSubView(subView: view, viewTag: 0)
+        return containerView
+    }()
     
     let connectedBlueToothPeripheralDisplayLabel: UILabel = {
         let label: UILabel = UILabel()
@@ -37,6 +61,10 @@ class ConnectedBlueToothViewController: UIViewController {
         return button
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        loadingView.aj_showDotLoadingIndicator()
+        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(listCheckButtonClicked))
+    }
     
     
     override func viewDidLoad() {
@@ -44,35 +72,29 @@ class ConnectedBlueToothViewController: UIViewController {
         UISetUp()
         writeButton.addTarget(self, action: #selector(writeButtonClicked), for: UIControlEvents.touchUpInside)
         self.manager = CBCentralManager(delegate: self, queue: nil)
-        self.myBluetoothPeripheral = self.peripheral     //save peripheral
-        self.myBluetoothPeripheral.delegate = self
-        self.socket = SocketManaging.socketManager.socket(forNamespace: "/")
-        
+       // self.myBluetoothPeripheral = self.peripheral     //save peripheral
+        //self.myBluetoothPeripheral.delegate = self
+        self.socket = SocketManaging.socketManager.socket(forNamespace: "/bluetooth")
+        self.indicatingTextLabel.text = "블루투스와 페어링 중 입니다."
+    
         socket.connect()
-        
         socket.on(clientEvent: .connect) {[weak self] data, ack in
-            print("socket chat connected")
-            
-            
-            
-            //self?.socket.emit("requestJoin", myJSON)
-            
+            print("socket BT connected")
         }
-        //manager.stopScan()                          //stop scanning for peripherals
-       // manager.connect(myBluetoothPeripheral, options: nil) //connect to my peripheral
-       /* socket.on("receiveMessage") {(data,ack) in
-            print("receive")
-            self.writeValue(value: "5a")
-        }*/
-        
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        socket.on("receiveMessage") {(data,ack) in
+            if UserInformation.userId == "sangbum" {
+                
+            } else {
+                self.writeValue(value: "some")
+            }
+        }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+    
+        
+    }
+
     @objc func writeButtonClicked() {
         print("touch!")
         
@@ -82,18 +104,32 @@ class ConnectedBlueToothViewController: UIViewController {
     
     
     
-    func UISetUp() {
-        self.view.addSubview(connectedBlueToothPeripheralDisplayLabel)
-        self.view.addSubview(writeButton)
+    
+    
+    private func UISetUp() {
+        self.view.addSubview(btImageView)
+        self.view.addSubview(loadingView)
+        self.view.addSubview(indicatingTextLabel)
         
+        self.btImageView.widthAnchor.constraint(equalToConstant: 130).isActive = true
+        self.btImageView.heightAnchor.constraint(equalToConstant: 130).isActive = true
+        self.btImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
+        self.btImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         
-        connectedBlueToothPeripheralDisplayLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8).isActive = true
-        connectedBlueToothPeripheralDisplayLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-        connectedBlueToothPeripheralDisplayLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.loadingView.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        self.loadingView.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        self.loadingView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.loadingView.topAnchor.constraint(equalTo: self.btImageView.bottomAnchor, constant: 12).isActive = true
         
-        self.writeButton.topAnchor.constraint(equalTo: self.connectedBlueToothPeripheralDisplayLabel.bottomAnchor, constant: 16).isActive = true
-        self.writeButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.indicatingTextLabel.topAnchor.constraint(equalTo: self.loadingView.bottomAnchor, constant: 24).isActive = true
+        self.indicatingTextLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.indicatingTextLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8).isActive = true
         
+    }
+    
+    @objc func listCheckButtonClicked() {
+        let listVC: BlueToothSearchingTableViewController = BlueToothSearchingTableViewController()
+        present(listVC, animated: true, completion: nil)
     }
     
     func writeValue(value: String) {
@@ -152,7 +188,7 @@ extension ConnectedBlueToothViewController: CBCentralManagerDelegate {
         
         print("Name: \(peripheral.name)") //print the names of all peripherals connected.
         print("searching!!!!!!!")
-        print("\(RSSI)")
+        //print("\(RSSI)")
         
         for alreadyInsideOfarray in peripherals {
             if alreadyInsideOfarray.peripheral.identifier == peripheral.identifier { return }
@@ -165,16 +201,32 @@ extension ConnectedBlueToothViewController: CBCentralManagerDelegate {
         //tableView.reloadData()
         //  }
         guard let blueToothName = peripheral.name else {return}
+        print("name: \(blueToothName)")
+        print("name: \(UserInformation.userId)")
         
-        if blueToothName == self.myBluetoothPeripheral.name {
-       
-            self.myBluetoothPeripheral = peripheral     //save peripheral
-            self.myBluetoothPeripheral.delegate = self
-            
-            manager.stopScan()                          //stop scanning for peripherals
-            manager.connect(myBluetoothPeripheral, options: nil) //connect to my peripheral
-            
+        if UserInformation.userId == "sangbum" {
+            if blueToothName == "TESTING" {
+                print("sangbum logged in")
+                self.myBluetoothPeripheral = peripheral     //save peripheral
+                self.myBluetoothPeripheral.delegate = self
+                
+                manager.stopScan()                          //stop scanning for peripherals
+                manager.connect(myBluetoothPeripheral, options: nil) //connect to my peripheral
+                print("sangbum logged in")
+                
+            }
+        } else {
+            if blueToothName == "[SABRE]" {
+                
+                self.myBluetoothPeripheral = peripheral     //save peripheral
+                self.myBluetoothPeripheral.delegate = self
+                
+                manager.stopScan()                          //stop scanning for peripherals
+                manager.connect(myBluetoothPeripheral, options: nil) //connect to my peripheral
+                
+            }
         }
+        
     }
     
     
@@ -182,7 +234,8 @@ extension ConnectedBlueToothViewController: CBCentralManagerDelegate {
         isMyPeripheralConected = true //블투가 연결되었을 때 실행되는 메서드
         peripheral.delegate = self 
         peripheral.discoverServices(nil)
-        print("didConnect")
+        self.indicatingTextLabel.text = "연결되었습니다."
+        
         
     }
     
@@ -238,16 +291,21 @@ extension ConnectedBlueToothViewController: CBPeripheralDelegate {
             
             let value = (readValue! as NSData).bytes.bindMemory(to: Int.self, capacity: readValue!.count).pointee //used to read an Int value
             
-            if value == 90 {
-                print ("touched master device")
-                writeValue(value: "some")
-            }
+            
             
            // writeValue(value: "5a")
             //sleep()
-            if value == 49  {
-                print("getting value!!")
-                self.socket.emit("sendMessage", "light on")
+            if UserInformation.userId == "sangbum" {
+                if value == 49  {
+                    print("sangbum!")
+                    print("getting value!!")
+                    self.socket.emit("sendMessage", "light on")
+                }
+            } else {
+                if value == 90 {
+                    print ("touched master device")
+                    writeValue(value: "")
+                }
             }
             print(value)
             

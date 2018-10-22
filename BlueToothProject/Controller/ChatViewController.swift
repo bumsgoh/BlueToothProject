@@ -185,7 +185,7 @@ class ChatViewController: UIViewController {
         
         let myJSON = [
             "message": "\(chatTextView.text!)",
-            "userId": "\(userId)",
+            "userId": "\(UserInformation.userId)",
             "roomName": "\(roomId)"
         ]
         //message.append(myJSON)
@@ -255,7 +255,7 @@ extension ChatViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let estimatedForm = NSString(string: messageText["message"]!).boundingRect(with: size, options: option, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18)], context: nil)
         
         
-        if !(messageText["sendMessageId"] == "\(userId)") {
+        if !(messageText["sendMessageId"] == "\(UserInformation.userId)") {
             cell.chatTextView.frame = CGRect(x: 40 + 8, y: 0, width: estimatedForm.width + 16, height: estimatedForm.height + 20)
             
              cell.textBubbleView.frame = CGRect(x: 40, y: 0, width: estimatedForm.width + 24, height: estimatedForm.height + 20)

@@ -10,6 +10,8 @@ import UIKit
 import SocketIO
 
 class LoginViewController: UIViewController {
+    
+    
     var socket: SocketIOClient!
     
     let logoImageView: UIImageView = {
@@ -103,9 +105,11 @@ class LoginViewController: UIViewController {
         socket.connect()
         socket.on("loginSuccess") {[weak self] data, ack in
             print("login gut")
+            
             let tabBarvc: MainTabBarController  = MainTabBarController()
             guard let id = self?.loginIdTextField.text else {return}
             tabBarvc.userId = id
+            UserInformation.userId = id
             self?.navigationController?.pushViewController(tabBarvc, animated: true)
         }
     }
@@ -121,10 +125,13 @@ class LoginViewController: UIViewController {
         socket.emit("loginRequest", myJSON)
         /*
          TESTING*/
+        /*
         let tabBarvc: MainTabBarController  = MainTabBarController()
         guard let id = self.loginIdTextField.text else {return}
         tabBarvc.userId = id
+        UserInformation.userId = id
         self.navigationController?.pushViewController(tabBarvc, animated: true)
+        */
  
     }
     @objc func loginButtonReleased(sender: UIButton) {
@@ -148,10 +155,10 @@ class LoginViewController: UIViewController {
         self.appTitleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 12).isActive = true
         self.appTitleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16).isActive = true
         
-        self.logoImageView.topAnchor.constraint(equalTo: self.appTitleLabel.bottomAnchor, constant: 84).isActive = true
+        self.logoImageView.topAnchor.constraint(equalTo: self.appTitleLabel.bottomAnchor, constant: 60).isActive = true
         self.logoImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.logoImageView.widthAnchor.constraint(equalToConstant: 130).isActive = true
-        self.logoImageView.heightAnchor.constraint(equalToConstant: 130).isActive = true
+        self.logoImageView.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        self.logoImageView.heightAnchor.constraint(equalToConstant: 120).isActive = true
         
         self.loginIdTextField.topAnchor.constraint(equalTo: self.logoImageView.bottomAnchor, constant: 54).isActive = true
         self.loginIdTextField.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.6).isActive = true

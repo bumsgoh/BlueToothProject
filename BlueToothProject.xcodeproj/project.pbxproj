@@ -13,11 +13,11 @@
 		B32B32E92179EA0E0049633D /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32B32E82179EA0E0049633D /* ChatListTableViewCell.swift */; };
 		B32B32EB2179EA6E0049633D /* ChatBubbleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32B32EA2179EA6E0049633D /* ChatBubbleCollectionViewCell.swift */; };
 		B32B32ED2179EAA10049633D /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32B32EC2179EAA10049633D /* ChatViewController.swift */; };
-		B32B32FA217ACA470049633D /* BlueToothConnectingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32B32F9217ACA470049633D /* BlueToothConnectingViewController.swift */; };
 		B32B3301217ACBBF0049633D /* UIDotLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32B32FE217ACBBE0049633D /* UIDotLoadingIndicator.swift */; };
 		B32B3302217ACBBF0049633D /* AJDotLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B32B32FF217ACBBF0049633D /* AJDotLoadingView.xib */; };
 		B32B3303217ACBBF0049633D /* AJDotLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32B3300217ACBBF0049633D /* AJDotLoadingView.swift */; };
 		B32B3306217ACBDA0049633D /* UIViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32B3305217ACBDA0049633D /* UIViewHelper.swift */; };
+		B32B330B217ADDDF0049633D /* UserInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32B330A217ADDDF0049633D /* UserInformation.swift */; };
 		B352A9632171D93800EDF119 /* BlueToothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B352A9622171D93800EDF119 /* BlueToothManager.swift */; };
 		B352A9662174BE7200EDF119 /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B352A9652174BE7200EDF119 /* SocketManager.swift */; };
 		B352A968217561AF00EDF119 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B352A967217561AF00EDF119 /* LoginViewController.swift */; };
@@ -64,11 +64,12 @@
 		B32B32E82179EA0E0049633D /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
 		B32B32EA2179EA6E0049633D /* ChatBubbleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBubbleCollectionViewCell.swift; sourceTree = "<group>"; };
 		B32B32EC2179EAA10049633D /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
-		B32B32F9217ACA470049633D /* BlueToothConnectingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueToothConnectingViewController.swift; sourceTree = "<group>"; };
 		B32B32FE217ACBBE0049633D /* UIDotLoadingIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDotLoadingIndicator.swift; sourceTree = "<group>"; };
 		B32B32FF217ACBBF0049633D /* AJDotLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AJDotLoadingView.xib; sourceTree = "<group>"; };
 		B32B3300217ACBBF0049633D /* AJDotLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJDotLoadingView.swift; sourceTree = "<group>"; };
 		B32B3305217ACBDA0049633D /* UIViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewHelper.swift; sourceTree = "<group>"; };
+		B32B3309217ADB570049633D /* BlueToothProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlueToothProject.entitlements; sourceTree = "<group>"; };
+		B32B330A217ADDDF0049633D /* UserInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformation.swift; sourceTree = "<group>"; };
 		B352A9622171D93800EDF119 /* BlueToothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueToothManager.swift; sourceTree = "<group>"; };
 		B352A9652174BE7200EDF119 /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
 		B352A967217561AF00EDF119 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -136,7 +137,6 @@
 		B32B32F4217AC9BF0049633D /* Animation */ = {
 			isa = PBXGroup;
 			children = (
-				B32B3304217ACBCF0049633D /* helper */,
 				B32B32FD217ACBB50049633D /* core */,
 			);
 			path = Animation;
@@ -150,14 +150,6 @@
 				B32B32FE217ACBBE0049633D /* UIDotLoadingIndicator.swift */,
 			);
 			path = core;
-			sourceTree = "<group>";
-		};
-		B32B3304217ACBCF0049633D /* helper */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = helper;
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		B352A9612171D91E00EDF119 /* BlueToothManager */ = {
@@ -201,6 +193,7 @@
 		B3660924212701BC0046846E /* BlueToothProject */ = {
 			isa = PBXGroup;
 			children = (
+				B32B3309217ADB570049633D /* BlueToothProject.entitlements */,
 				B352A9642174BE5F00EDF119 /* SocketManager */,
 				B352A9612171D91E00EDF119 /* BlueToothManager */,
 				B3B7D62E2139943B004BFF49 /* Model */,
@@ -239,7 +232,6 @@
 			children = (
 				B32B3305217ACBDA0049633D /* UIViewHelper.swift */,
 				B3660927212701BC0046846E /* BlueToothSearchingTableViewController.swift */,
-				B32B32F9217ACA470049633D /* BlueToothConnectingViewController.swift */,
 				B363F3FA2139A44B001935EF /* ConnectedBlueToothViewController.swift */,
 				B352A967217561AF00EDF119 /* LoginViewController.swift */,
 				B32B32EC2179EAA10049633D /* ChatViewController.swift */,
@@ -264,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				B32B32E62179E9F30049633D /* ChatRoom.swift */,
+				B32B330A217ADDDF0049633D /* UserInformation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -353,6 +346,14 @@
 				TargetAttributes = {
 					B3660921212701BC0046846E = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 					B3660935212701BE0046846E = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -520,10 +521,10 @@
 				B32B32ED2179EAA10049633D /* ChatViewController.swift in Sources */,
 				B32B32E72179E9F30049633D /* ChatRoom.swift in Sources */,
 				B32B32E92179EA0E0049633D /* ChatListTableViewCell.swift in Sources */,
+				B32B330B217ADDDF0049633D /* UserInformation.swift in Sources */,
 				B32B3306217ACBDA0049633D /* UIViewHelper.swift in Sources */,
 				B32B3303217ACBBF0049633D /* AJDotLoadingView.swift in Sources */,
 				B3660926212701BC0046846E /* AppDelegate.swift in Sources */,
-				B32B32FA217ACA470049633D /* BlueToothConnectingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

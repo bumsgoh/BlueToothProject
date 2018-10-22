@@ -14,6 +14,7 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //self.tabBarController?.isNavi
+        self.view.backgroundColor = UIColor.white
         makeViewControllers()
     }
     func makeViewControllers() {
@@ -21,7 +22,7 @@ class MainTabBarController: UITabBarController {
         blueToothVC.tabBarItem = UITabBarItem(title: "bluetooth", image: #imageLiteral(resourceName: "bluetooth-logo-with-background"), tag: 0)
        // UITabBarItem(tabBarSystemItem: UITabBarSystemItem.downloads, tag: 0)
         let naviCoverBlueTooth: UINavigationController = UINavigationController(rootViewController: blueToothVC)
-        let connectingBTVC: BlueToothConnectingViewController = BlueToothConnectingViewController()
+        let connectingBTVC: ConnectedBlueToothViewController = ConnectedBlueToothViewController()
          connectingBTVC.tabBarItem = UITabBarItem(title: "bluetooth", image: #imageLiteral(resourceName: "bluetooth-logo-with-background"), tag: 0)
         
         let chatListsViewController = ChatListTableViewController()

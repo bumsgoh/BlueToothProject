@@ -214,7 +214,7 @@ extension BlueToothSearchingTableViewController {
         guard let name = self.myBluetoothPeripheral.name else {return}
         let VC: ConnectedBlueToothViewController = ConnectedBlueToothViewController()
         VC.connectedBlueToothPeripheralDisplayLabel.text = "Now connected with \(name) and Central is interacting with it"
-        VC.peripheral = myBluetoothPeripheral
+        //VC.peripheral = myBluetoothPeripheral
         self.present(VC, animated: true, completion: nil)
         
         //print("conneted")

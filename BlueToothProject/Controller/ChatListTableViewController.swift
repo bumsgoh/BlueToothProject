@@ -40,7 +40,7 @@ class ChatListTableViewController: UITableViewController {
         socket.connect()
         socket.on(clientEvent: .connect) {[weak self] data, ack in
             print("socket chat connected")
-            self?.socket.emit("getChatList", "\(self!.userId)")
+            self?.socket.emit("getChatList", "\(UserInformation.userId)")
         }
         
         self.socket.on("invitedJoin") {(data,ack) in
@@ -61,7 +61,21 @@ class ChatListTableViewController: UITableViewController {
         //self.socket.on("setChatList") {(data,ack) in print(data)}
         self.socket.on("joinSuccess") {(data,ack) in
             let chatVC: ChatViewController = ChatViewController()
+            print(data)
+            var roomId: String = ""
+            for fixed in data {
+                var dataDic: [String : Any] = [:]
+                print(data)
+                dataDic = (fixed as! NSDictionary) as! [String : Any]
+                let members: [String] = dataDic["joinMembers"] as! [String]
+                roomId = dataDic["roomName"] as! String
+                let chatData: ChatRoom = ChatRoom(member: members[0], roomId: roomId)
+                //self.chatRooms.append(chatData)
+            }
+            
             chatVC.userId = self.userId
+            chatVC.roomId = roomId
+            chatVC.socket = self.socket
             self.navigationController?.pushViewController(chatVC, animated: true)
             
         }
@@ -82,7 +96,7 @@ class ChatListTableViewController: UITableViewController {
             let textField = alert?.textFields![0]
             self.inviteId = (textField?.text)!
             let myJSON = [
-                "id0": "\(self.userId)",
+                "id0": "\(UserInformation.userId)",
                 "id1": "\(self.inviteId)"
             ]
             
